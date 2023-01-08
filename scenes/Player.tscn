@@ -1,0 +1,67 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://data/battleGirl.gltf" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Player.gd" type="Script" id=2]
+
+[sub_resource type="CapsuleShape" id=1]
+height = 0.199469
+
+[sub_resource type="AnimationNodeAnimation" id=2]
+animation = "Idle-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=3]
+animation = "Run-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=4]
+animation = "Walk-loop"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=5]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=6]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=7]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=8]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=9]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=10]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachine" id=11]
+states/Idle-loop/node = SubResource( 2 )
+states/Idle-loop/position = Vector2( 354, 96 )
+states/Run-loop/node = SubResource( 3 )
+states/Run-loop/position = Vector2( 230, 197 )
+states/Walk-loop/node = SubResource( 4 )
+states/Walk-loop/position = Vector2( 467, 197 )
+transitions = [ "Idle-loop", "Run-loop", SubResource( 5 ), "Run-loop", "Idle-loop", SubResource( 6 ), "Idle-loop", "Walk-loop", SubResource( 7 ), "Walk-loop", "Idle-loop", SubResource( 8 ), "Run-loop", "Walk-loop", SubResource( 9 ), "Walk-loop", "Run-loop", SubResource( 10 ) ]
+start_node = "Idle-loop"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=12]
+resource_local_to_scene = false
+
+[node name="Player" type="KinematicBody"]
+script = ExtResource( 2 )
+animationtree = NodePath("AnimationTree")
+
+[node name="battleGirl" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0981153, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.01831, 0 )
+shape = SubResource( 1 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 11 )
+anim_player = NodePath("../battleGirl/AnimationPlayer")
+active = true
+root_motion_track = NodePath("Armature/Skeleton:RootMotion")
+parameters/playback = SubResource( 12 )
+
+[editable path="battleGirl"]
