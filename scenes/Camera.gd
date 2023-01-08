@@ -5,7 +5,7 @@ export(NodePath) onready var target = get_node(target)
 export(Resource) var setup
 
 var _pressed := false
-var _last_pos
+var _last_pos = Vector2.ZERO
 
 func _ready():
 	if setup.target_offset == Vector3.ZERO:
@@ -23,7 +23,7 @@ func _process(delta):
 	target_offset = target_offset.rotated(Vector3.UP, setup.rotation.y)
 	look_at = look_at.rotated(Vector3.UP, setup.rotation.y)
 	target_offset = target_offset.rotated(up_down_axis, setup.rotation.x)
-	look_at = look_at.rotated(up_down_axis, setup.rotation.y)
+	look_at = look_at.rotated(up_down_axis, setup.rotation.x)
 	
 	self.transform.origin += target_offset
 	self.look_at(look_at, Vector3.UP)
@@ -37,8 +37,8 @@ func _unhandled_input(event):
 		_pressed = false
 	if event is InputEventScreenDrag and _pressed == true:
 		var diff : Vector2 = _last_pos - event.position
-		diff = diff / 100.0
+		diff = diff / 200.0
 		setup.rotation.y += diff.x
-		setup.rotation.x -= diff.y
-		setup.rotation.x = clamp(setup.position.x, setup.pitch_limit.x, setup.pitch_limit.y)
-		_last_pos = event.postion
+		setup.rotation.x += diff.y
+		#setup.rotation.x = clamp(setup.rotation.x, setup.pitch_limit.x, setup.pitch_limit.y)
+		_last_pos = event.position

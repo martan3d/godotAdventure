@@ -18,8 +18,10 @@ func _physics_process(delta):
 	
 	v += gravity
 	
-	if Input.is_action_pressed("ui_select"):
+	if Input.is_action_pressed("ui_accept") and Input.is_action_pressed("ui_up"):
 		_anim_tree["parameters/playback"].travel("Run-loop")
+	elif Input.is_action_pressed("ui_up"):
+		_anim_tree["parameters/playback"].travel("Walk-loop")
 	else:
 		_anim_tree["parameters/playback"].travel("Idle-loop")
 		

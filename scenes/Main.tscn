@@ -8,11 +8,11 @@
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 1 )
-uv1_scale = Vector3( 10, 10, 10 )
+uv1_scale = Vector3( 20, 20, 20 )
 
 [sub_resource type="CubeMesh" id=2]
 material = SubResource( 1 )
-size = Vector3( 100, 2, 100 )
+size = Vector3( 200, 2, 200 )
 
 [sub_resource type="BoxShape" id=3]
 
@@ -28,6 +28,7 @@ material = SubResource( 4 )
 script = ExtResource( 5 )
 target_offset = Vector3( 0, 0, 0 )
 rotation = Vector3( 0, 0, 0 )
+position = Vector3( 0, 0, 0 )
 pitch_limit = Vector2( 0, 0 )
 anchor_offset = Vector3( 0, 0, 0 )
 look_target = Vector3( 0, 0, 0 )
@@ -37,12 +38,14 @@ look_target = Vector3( 0, 0, 0 )
 [node name="Level" type="Spatial" parent="."]
 
 [node name="MeshInstance" type="MeshInstance" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30.651 )
 mesh = SubResource( 2 )
 
 [node name="StaticBody" type="StaticBody" parent="Level/MeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.148041 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Level/MeshInstance/StaticBody"]
-transform = Transform( 50, 0, 0, 0, 1, 0, 0, 0, 50, 0, 0, 0 )
+transform = Transform( 50, 0, 0, 0, 1, 0, 0, 0, 50, 0, 0, 0.206947 )
 shape = SubResource( 3 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="Level"]
@@ -58,7 +61,7 @@ shape = SubResource( 6 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.31619, 0 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( -0.997649, -0.0399129, 0.0557169, 0, 0.812938, 0.58235, -0.0685377, 0.580981, -0.811027, 0.251, 4.278, -2.515 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.130299, 3.8131, -3.16617 )
 script = ExtResource( 4 )
 target = NodePath("../Player")
 setup = SubResource( 7 )
